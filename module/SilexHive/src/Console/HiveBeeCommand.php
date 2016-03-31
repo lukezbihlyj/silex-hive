@@ -8,6 +8,8 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Logger\ConsoleLogger;
+use Psr\Log\LogLevel;
 use Resque_Event;
 use Resque_Job;
 use Resque_Worker;
@@ -39,21 +41,22 @@ class HiveBeeCommand extends ConsoleCommand
 
         $queues = explode(',', $input->getArgument('queues'));
         $interval = $input->getOption('interval');
-        $logLevel = Resque_Worker::LOG_NORMAL;
-
-        if ($input->getOption('verbose')) {
-            $logLevel = Resque_Worker::LOG_VERBOSE;
-        }
-
-        if ($input->getOption('quiet')) {
-            $logLevel = Resque_Worker::LOG_NONE;
-        }
 
         Resque_Event::listen('beforePerform', [$this, 'beforePerform']);
 
+        $logger = new ConsoleLogger($output, [
+            LogLevel::EMERGENCY => OutputInterface::VERBOSITY_NORMAL,
+            LogLevel::ALERT => OutputInterface::VERBOSITY_NORMAL,
+            LogLevel::CRITICAL => OutputInterface::VERBOSITY_NORMAL,
+            LogLevel::ERROR => OutputInterface::VERBOSITY_NORMAL,
+            LogLevel::WARNING => OutputInterface::VERBOSITY_NORMAL,
+            LogLevel::NOTICE => OutputInterface::VERBOSITY_NORMAL,
+            LogLevel::INFO => OutputInterface::VERBOSITY_NORMAL,
+            LogLevel::DEBUG => OutputInterface::VERBOSITY_VERBOSE
+        ]);
+
         $worker = new Resque_Worker($queues);
-        $worker->logLevel = $logLevel;
-        $worker->setLogger($output);
+        $worker->setLogger($logger);
         $worker->work($interval);
     }
 
