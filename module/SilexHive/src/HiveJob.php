@@ -49,5 +49,5 @@ abstract class HiveJob
      * @param array $args
      * @return void
      */
-    abstract protected function execute(Application $app, OutputInterface $output, array $args);
+    abstract public function execute(Application $app, OutputInterface $output, array $args);
 }
