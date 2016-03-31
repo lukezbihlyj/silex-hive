@@ -38,6 +38,10 @@ class Hive
      */
     public function queue($queue, $class, $args)
     {
+        if (!$args) {
+            $args = [];
+        }
+
         return Resque::enqueue($queue, $class, $args, true);
     }
 
