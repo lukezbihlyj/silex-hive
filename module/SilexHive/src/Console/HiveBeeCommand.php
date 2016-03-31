@@ -15,7 +15,7 @@ use Resque_Worker;
 /**
  * @package LukeZbihlyj\SilexHive\Command\HiveBeeCommand
  */
-class HiveBeeCommand extends Command
+class HiveBeeCommand extends ConsoleCommand
 {
     /**
      * {@inheritDoc}
@@ -26,9 +26,7 @@ class HiveBeeCommand extends Command
             ->setDescription('Run a new worker that processes incoming commands from the Hive queue.')
             ->setDefinition([
                 new InputArgument('queues', InputArgument::REQUIRED, 'Comma separated list of queues to process'),
-                new InputOption('interval', null, InputOption::VALUE_REQUIRED, 'Time between each task (seconds)', 5),
-                new InputOption('verbose', null, InputOption::VALUE_NONE, 'If set, logging will be verbose'),
-                new InputOption('quiet', null, InputOption::VALUE_NONE, 'If set, no logging will be performed')
+                new InputOption('interval', null, InputOption::VALUE_REQUIRED, 'Time between each task (seconds)', 5)
             ]);
     }
 
