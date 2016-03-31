@@ -1,0 +1,18 @@
+{
+    "name": "lukezbihlyj/silex-hive",
+    "description": "Module that enables parallel processing to be used with the silex-plus package.",
+    "type": "library",
+    "require": {
+        "php": ">=5.4",
+
+        "silex/silex": "~1.3",
+        "lukezbihlyj/silex-plus": "dev-master",
+
+        "chrisboulton/php-resque": "1.2.x"
+    },
+    "autoload": {
+        "psr-4": {
+            "LukeZbihlyj\\SilexHive\\": "module/SilexHive/src/"
+        }
+    }
+}
