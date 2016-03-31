@@ -23,7 +23,7 @@ class Module implements ModuleInterface
      */
     public function init(Application $app)
     {
-        $app->share('hive', function() use ($app) {
+        $app['hive'] = $app->share(function() use ($app) {
             $hive = new Hive();
             $hive->setRedis($app['hive.redis']);
 
