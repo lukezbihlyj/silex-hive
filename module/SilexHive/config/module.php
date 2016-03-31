@@ -15,6 +15,8 @@ return [
      * Define a list of commands that should be added to the console on initialisation.
      */
     'console.commands' => [
-        'LukeZbihlyj\SilexHive\Console\HiveBeeCommand'
+        'LukeZbihlyj\SilexHive\Console\HiveBeeCommand',
+        'LukeZbihlyj\SilexHive\Console\HiveQueueCommand',
+        'LukeZbihlyj\SilexHive\Console\HiveStatusCommand'
     ],
 ];

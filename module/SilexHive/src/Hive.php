@@ -2,6 +2,7 @@
 
 namespace LukeZbihlyj\SilexHive;
 
+use Resque;
 use Resque_Job_Status;
 
 /**
@@ -19,7 +20,7 @@ class Hive
     }
 
     /**
-     * @param integer $jobId
+     * @param string $jobId
      * @return integer
      */
     public function getJobStatus($jobId)
@@ -33,7 +34,7 @@ class Hive
      * @param string $queue
      * @param string $class
      * @param mixed $args
-     * @return integer
+     * @return string
      */
     public function queue($queue, $class, $args)
     {
