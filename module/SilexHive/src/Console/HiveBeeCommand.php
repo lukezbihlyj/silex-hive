@@ -38,6 +38,7 @@ class HiveBeeCommand extends ConsoleCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $app = $this->getSilexApp();
+        $hive = $app->getHive();
 
         $queues = explode(',', $input->getArgument('queues'));
         $interval = $input->getOption('interval');

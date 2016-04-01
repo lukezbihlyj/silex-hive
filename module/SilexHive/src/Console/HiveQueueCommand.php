@@ -34,12 +34,13 @@ class HiveQueueCommand extends ConsoleCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $app = $this->getSilexApp();
+        $hive = $app->getHive();
 
         $queue = $input->getArgument('queue');
         $class = $input->getArgument('class');
         $args = json_decode($input->getArgument('args'), true);
 
-        $jobId = $app['hive']->queue($queue, $class, $args);
+        $jobId = $hive->queue($queue, $class, $args);
 
         $output->writeln('<info>Successfully queued job with ID: ' . $jobId . '</info>');
     }

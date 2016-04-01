@@ -30,6 +30,7 @@ class HiveStatusCommand extends ConsoleCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $app = $this->getSilexApp();
+        $hive = $app->getHive();
 
         $queues = Resque::queues();
 
