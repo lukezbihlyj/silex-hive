@@ -32,10 +32,14 @@ class HiveStatusCommand extends ConsoleCommand
         $app = $this->getSilexApp();
         $hive = $app->getHive();
 
-        $queues = Resque::queues();
+        $queues = $hive->getQueues();
 
-        foreach ($queues as $queue) {
-            $output->writeln('<info>Queue "' . $queue . '" has ' . Resque::size($queue) . ' jobs</info>');
+        if (empty($queues)) {
+            $output->writeln('<comment>No queues were found on the Hive server</comment>');
+        } else {
+            foreach ($queues as $queue) {
+                $output->writeln('<info>Queue "' . $queue . '" has ' . $hive->getQueueSize($queue) . ' jobs</info>');
+            }
         }
     }
 }

@@ -31,6 +31,23 @@ class Hive
     }
 
     /**
+     * @return array
+     */
+    public function getQueues()
+    {
+        return Resque::queues();
+    }
+
+    /**
+     * @param string $queue
+     * @return integer
+     */
+    public function getQueueSize($queue)
+    {
+        return Resque::size($queue);
+    }
+
+    /**
      * @param string $queue
      * @param string $class
      * @param mixed $args
