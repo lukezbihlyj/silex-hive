@@ -51,15 +51,16 @@ class Hive
      * @param string $queue
      * @param string $class
      * @param mixed $args
+     * @param string $jobId
      * @return string
      */
-    public function queue($queue, $class, $args)
+    public function queue($queue, $class, $args, $jobId = null)
     {
         if (!$args) {
             $args = [];
         }
 
-        return Resque::enqueue($queue, $class, $args, true);
+        return Resque::enqueue($queue, $class, $args, true, $jobId);
     }
 
     /**
