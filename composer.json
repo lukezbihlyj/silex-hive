@@ -6,13 +6,14 @@
         "php": ">=5.4",
 
         "silex/silex": "~1.3",
-        "lukezbihlyj/silex-plus": "dev-master",
-
-        "chrisboulton/php-resque": "dev-master"
+        "lukezbihlyj/silex-plus": "dev-master"
     },
     "autoload": {
         "psr-4": {
             "LukeZbihlyj\\SilexHive\\": "module/SilexHive/src/"
+        },
+        "psr-0": {
+            "Resque": "module/Resque/src/"
         }
     }
 }
