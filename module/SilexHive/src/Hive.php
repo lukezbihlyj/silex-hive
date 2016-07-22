@@ -3,7 +3,10 @@
 namespace LukeZbihlyj\SilexHive;
 
 use Resque;
+use Resque_Job;
 use Resque_Job_Status;
+use Resque_Job_DontCreate;
+use Resque_Event;
 
 /**
  * @package LukeZbihlyj\SilexHive\Hive
@@ -60,7 +63,27 @@ class Hive
             $args = [];
         }
 
-        return Resque::enqueue($queue, $class, $args, true, $jobId);
+        if (!$jobId) {
+            $jobId = Resque::generateJobId();
+        }
+
+        $hookParams = [
+            'class' => $class,
+            'args' => $args,
+            'queue' => $queue,
+            'id' => $jobId
+        ];
+
+        try {
+            Resque_Event::trigger('beforeEnqueue', $hookParams);
+        } catch (Resque_Job_DontCreate $e) {
+            return false;
+        }
+
+        Resque_Job::create($queue, $class, $args, true, $jobId);
+        Resque_Event::trigger('afterEnqueue', $hookParams);
+
+        return $jobId;
     }
 
     /**
