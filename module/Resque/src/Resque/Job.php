@@ -179,6 +179,7 @@ class Resque_Job
 		$this->instance->job = $this;
 		$this->instance->args = $this->getArguments();
 		$this->instance->queue = $this->queue;
+
 		return $this->instance;
 	}
 
@@ -228,12 +229,7 @@ class Resque_Job
 		));
 
 		$this->updateStatus(Resque_Job_Status::STATUS_FAILED);
-		Resque_Failure::create(
-			$this->payload,
-			$exception,
-			$this->worker,
-			$this->queue
-		);
+
 		Resque_Stat::incr('failed');
 		Resque_Stat::incr('failed:' . $this->worker);
 	}
