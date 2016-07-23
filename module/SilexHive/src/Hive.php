@@ -23,6 +23,14 @@ class Hive
     }
 
     /**
+     * @param Resque_Redis
+     */
+    public function getRedis()
+    {
+        return Resque::redis();
+    }
+
+    /**
      * @param string $jobId
      * @return integer
      */
